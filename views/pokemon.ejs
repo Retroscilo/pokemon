@@ -17,11 +17,14 @@
         }
 
         button {
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
-        p {
+        p.fav {
             display: none;
+        }
+        textarea {
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -33,7 +36,7 @@
             method: "POST",
             body: JSON.stringify({name})
         })
-        document.querySelector("p").style.display = "block"
+        document.querySelector("p.fav").style.display = "block"
     }
 
     async function remove ()
@@ -44,19 +47,32 @@
             body: JSON.stringify({name})
         })
     }
+
+    async function comment() {
+        const name = document.querySelector("h1").innerHTML
+        const comment = document.querySelector("textarea").value
+        await fetch(`http://localhost:3000/pokemon/${name}`, {
+            method: "PUT",
+            body: JSON.stringify({comment}),
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+    }
 </script>
 <div class="container">
     <img src=<%= pokemon.sprites.front_shiny %> alt="">
-    <h1><%= pokemon.name %> </h1><span>
-        <% if(isFavori) { %>⭐️
-        <% } %>
-    </span>
+    <h1><%= pokemon.name %> </h1>
+    <span> <% if(isFavori) { %>⭐️<% } %> </span>
     <% if(!isFavori) { %>
         <button onclick="favori()">Ajouter en favori</button>
     <% } else { %>
         <button onclick="remove()">Supprimer des favoris</button>
     <% } %>
-    <p>Ajouté en favori !</p>
+    <p class="fav">Ajouté en favori !</p>
+    <p><%= c %></p>
+    <textarea></textarea>
+    <button onclick="comment()">commenter</button>
 </div>
 
 </body>

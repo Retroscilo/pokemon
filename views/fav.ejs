@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Express</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+
+
+<ul>
+    <% Favs.forEach(pokemon => { %>
+    <li><a href=<%=`/pokemon/${pokemon.name}`%>> <%= pokemon.name %> </a><button onclick="remove(`<%=pokemon.name%>`)">supprimer</button></li>
+    <% }); %>
+</ul>
+<script type="application/javascript">
+    async function remove (name)
+    {
+        await fetch(`http://localhost:3000/pokemon/${name}`, {
+            method: "DELETE",
+            body: JSON.stringify({name})
+        })
+    }
+</script>
+</body>
+</html>
