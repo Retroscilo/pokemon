@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         .container {
             border: 1px solid black;
             display: flex;
@@ -25,6 +28,10 @@
         }
         textarea {
             margin: 20px 0;
+        }
+        p.comment {
+            width: 100%;
+            padding: 0 20px;
         }
     </style>
 </head>
@@ -58,6 +65,7 @@
                 "content-type": "application/json"
             }
         })
+        document.querySelector("p.comment").innerHTML = comment
     }
 </script>
 <div class="container">
@@ -70,7 +78,7 @@
         <button onclick="remove()">Supprimer des favoris</button>
     <% } %>
     <p class="fav">Ajouté en favori !</p>
-    <p><%= c %></p>
+    <p class="comment">commentaire : <%= c %></p>
     <textarea></textarea>
     <button onclick="comment()">commenter</button>
 </div>
