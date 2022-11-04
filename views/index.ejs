@@ -5,20 +5,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <p><%= message %></p>
-    <ul>
-      <% users.forEach(user => { %>
-        <li><%= user.name %> a <%= user.age %> ans</li>
-        <% if (user.active) { %> son compte est actif <% } %>
-      <% }); %>
-    </ul>
 
 
     <ul>
-      <% pokemon .forEach(pokemon => { %>
-        <li><%= pokemon.name %> </li>
+      <% pokemon.forEach(pokemon => { %>
+        <li><a href=<%=`/pokemon/${pokemon.name}`%>> <%= pokemon.name %> </a></li>
       <% }); %>
     </ul>
   </body>
