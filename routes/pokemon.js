@@ -5,8 +5,8 @@ const pokemonController = require('../controllers/pokemonController');
 // Toutes les routes users commence par /users (voir app.js ligne 8)
 
 router.get('/:name', pokemonController.index);
-router.post('/', pokemonController.create);
-router.delete('/:id', pokemonController.deleteUser);
+router.post('/:name', pokemonController.create);
+router.delete('/:name', pokemonController.deleteUser);
 
 
 

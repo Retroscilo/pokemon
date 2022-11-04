@@ -1,30 +1,27 @@
 const User = require('../models/userModel');
+const Favori = require('../models/Favori.model')
 
 const index = async (req, res) => { // Récupérer les users et les afficher dans la vue
     const {name} = req.params
     const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
     const pokemon = await data.json()
-    res.render("pokemon", {pokemon, addFavori: () => console.log("favori")})
+    const isFavori = await Favori.find({name})
+    res.render("pokemon", {pokemon, isFavori: isFavori.length > 0})
 }
 
-const create = (req, res) => { // Créer un user
-    const { id } =  req.body
+const create = async (req, res) => { // Créer un user
+    const { name } =  req.params
+    await Favori.create({name})
 
-    User.create({ name, age, city })
-        .then(user => {
-            res.status(201).json(user)
-        })
-        .catch(err => res.status(500).json(err))
+    return res.status(200).send("OK")
 }
 
-const deleteUser = (req, res) => { // Supprimer un user par son id
-    const {id} = req.params
+const deleteUser = async (req, res) => { // Supprimer un user par son id
+    const { name } =  req.params
 
-    User.findByIdAndDelete(id, (err, user) => {
-        if (err) res.status(500).json({err, message: "Unable to delete user"}) // Si erreur, renvoyer un code 500 et l'erreur
-        if (user === null) res.status(404).json({message: "user not found"}) // Si pas de user, renvoyer un code 404 et un message
-        else res.status(200).json({message: "user deleted", user})
-    })
+   await Favori.deleteMany({name})
+
+    return res.status(200).send("OK")
 }
 
 module.exports = { // Exporter les méthodes
