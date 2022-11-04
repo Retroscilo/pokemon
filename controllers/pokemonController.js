@@ -11,9 +11,15 @@ const index = async (req, res) => { // Récupérer les users et les afficher dan
     res.render("pokemon", {pokemon, isFavori: isFavori.length > 0, c: commentary?.comment || ""})
 }
 
-const create = async (req, res) => { // Créer un user
+const create = async (req, res) => {
     const {name} = req.params
+    try {
+
     await Favori.create({name})
+
+    } catch(e) {
+        if(e.code == 11000) return res.status(403).send("Le pokemon est deja en favori !")
+    }
 
     return res.status(200).send("OK")
 }

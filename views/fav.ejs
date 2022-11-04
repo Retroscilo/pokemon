@@ -9,7 +9,7 @@
 
 <ul>
     <% Favs.forEach(pokemon => { %>
-    <li><a href=<%=`/pokemon/${pokemon.name}`%>> <%= pokemon.name %> </a><button onclick="remove(`<%=pokemon.name%>`)">supprimer</button></li>
+    <li id=<%=pokemon.name%> ><a href=<%=`/pokemon/${pokemon.name}`%>> <%= pokemon.name %> </a><button onclick="remove(`<%=pokemon.name%>`)">supprimer</button></li>
     <% }); %>
 </ul>
 <script type="application/javascript">
@@ -19,6 +19,7 @@
             method: "DELETE",
             body: JSON.stringify({name})
         })
+        document.getElementById(name).remove()
     }
 </script>
 </body>
